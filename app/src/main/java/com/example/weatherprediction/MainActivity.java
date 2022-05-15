@@ -1,6 +1,8 @@
 package com.example.weatherprediction;
 
 import android.os.Bundle;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -16,6 +18,9 @@ import com.example.weatherprediction.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private RadioGroup radioGroup;
+    RadioButton cityBtn, coordinationBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">WeatherPrediction</string>
+    <string name="app_name">Weather Prediction</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="settings">Settings</string>
+    <string name="coordination">In Terms Of Coordination</string>
+    <string name="city_name">By City</string>
+    <string name="search">Search :</string>
 </resources>
