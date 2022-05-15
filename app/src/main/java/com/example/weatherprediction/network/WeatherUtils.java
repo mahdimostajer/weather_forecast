@@ -19,6 +19,7 @@ public class WeatherUtils {
 
     private OkHttpClient client;
 
+
     public WeatherUtils() {
         client = Client.getInstance().client;
     }

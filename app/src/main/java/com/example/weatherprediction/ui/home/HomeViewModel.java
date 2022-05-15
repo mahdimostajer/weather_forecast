@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.weatherprediction.CityRepository;
+import com.example.weatherprediction.WeatherRepository;
 import com.example.weatherprediction.models.City;
 import com.example.weatherprediction.models.Weather;
 import com.example.weatherprediction.network.CityUtils;
@@ -18,12 +19,15 @@ public class HomeViewModel extends ViewModel {
 
 
     public MutableLiveData<City> city;
-    public MutableLiveData<Weather> weather = new MutableLiveData<>();
+    public MutableLiveData<Weather> weather;
     public CityRepository cityRepository;
+    public WeatherRepository weatherRepository;
 
     public HomeViewModel() {
         cityRepository = new CityRepository();
+        weatherRepository = new WeatherRepository();
         city = cityRepository.city;
+        weather = weatherRepository.weather;
     }
 
 
@@ -32,29 +36,8 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void getWeather(String lat, String lon) {
-        new fetchWeather(weather).execute(lat, lon);
+        weatherRepository.getWeather(lat, lon);
     }
 
-    public class fetchWeather extends AsyncTask<String, Void, String> {
-        MutableLiveData<Weather> weather;
-
-        public fetchWeather(MutableLiveData<Weather> weather) {
-            this.weather = weather;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Gson gson = new Gson();
-            Weather newWeather = gson.fromJson(s, Weather.class);
-            this.weather.setValue(newWeather);
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            WeatherUtils weatherUtils = new WeatherUtils();
-            return weatherUtils.getWeather(params[0], params[1]);
-        }
-    }
 
 }
