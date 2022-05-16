@@ -1,6 +1,9 @@
 package com.example.weatherprediction.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,7 +57,7 @@ public class HomeFragment extends Fragment {
                 if (city != null) {
                     Log.d("corrdinate", city.features.get(0).center.get(0));
                     Log.d("corrdinate", city.features.get(0).center.get(1));
-                    homeViewModel.getWeather(city.features.get(0).center.get(1),city.features.get(0).center.get(0));
+                    homeViewModel.getWeather(city.features.get(0).center.get(1), city.features.get(0).center.get(0));
                 }
             }
         });
@@ -63,10 +66,45 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_city) {
-                    homeViewModel.getCity(binding.cityEditText.getEditText().getText().toString());
+                    String name = binding.cityEditText.getEditText().getText().toString();
+
+                    ConnectivityManager connMgr = (ConnectivityManager)
+                            getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = null;
+                    if (connMgr != null) {
+                        networkInfo = connMgr.getActiveNetworkInfo();
+                    }
+                    if (networkInfo != null && networkInfo.isConnected() && name.length() != 0) {
+                        homeViewModel.getCity(name);
+                    } else {
+                        if (name.length() == 0) {
+                            Toast.makeText(getActivity(), "please enter city name", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getActivity(), "no internet connection", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
                 } else if (binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_coordination) {
-                    homeViewModel.getWeather(binding.latitudeEditText.getEditText().getText().toString(),
-                            binding.longitudeEditText.getEditText().getText().toString());
+                    String lat = binding.latitudeEditText.getEditText().getText().toString();
+                    String lon = binding.longitudeEditText.getEditText().getText().toString();
+
+                    ConnectivityManager connMgr = (ConnectivityManager)
+                            getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = null;
+                    if (connMgr != null) {
+                        networkInfo = connMgr.getActiveNetworkInfo();
+                    }
+                    if (networkInfo != null && networkInfo.isConnected()
+                            && lat.length() != 0 && lon.length() != 0) {
+                        homeViewModel.getWeather(lon, lat);
+                    } else {
+                        if (lat.length() == 0 && lon.length() == 0) {
+                            Toast.makeText(getActivity(), "please enter required fields", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getActivity(), "no internet connection", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
                 }
             }
         });
