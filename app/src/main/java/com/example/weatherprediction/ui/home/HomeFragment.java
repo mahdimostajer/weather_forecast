@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -50,6 +56,28 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+        binding.latitudeEditText.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (binding.longitudeEditText.getEditText().getText().toString().length() != 0 && editable.toString().length() != 0) {
+                    Toast.makeText(getActivity(), "no internet connection", Toast.LENGTH_LONG).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.discoverButton.performClick();
+                        }
+                    }, 5000);
+                }
+            }
+        });
 
         homeViewModel.city.observe(getActivity(), new Observer<City>() {
             @Override
@@ -67,7 +95,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 if (binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_city) {
                     String name = binding.cityEditText.getEditText().getText().toString();
-
                     ConnectivityManager connMgr = (ConnectivityManager)
                             getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo networkInfo = null;
@@ -127,6 +154,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void changeVisibilityForCoordinationMode() {
+        binding.longitudeEditText.requestFocus();
         binding.coordinationText.setVisibility(View.VISIBLE);
         binding.latitudeEditText.setVisibility(View.VISIBLE);
         binding.longitudeEditText.setVisibility(View.VISIBLE);
@@ -142,6 +170,7 @@ public class HomeFragment extends Fragment {
 
 
     private void changeVisibilityForCityMode() {
+        binding.cityEditText.requestFocus();
         binding.cityText.setVisibility(View.VISIBLE);
         binding.cityEditText.setVisibility(View.VISIBLE);
         binding.discoverButton.setVisibility(View.VISIBLE);
