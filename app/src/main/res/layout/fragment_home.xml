@@ -95,48 +95,62 @@
                 app:layout_constraintTop_toTopOf="parent"
                  />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/longitude_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Longitude"
-                android:visibility="invisible"
-                app:hintTextColor="?attr/text_color"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/coordination_text"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/longitude_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginTop="0dp"
+        android:focusable="true"
+        android:nextFocusDown="@id/latitude_editText"
+        android:hint="Longitude"
+        app:hintTextColor="?attr/text_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coordination_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:inputType="number"
+            android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/latitude_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Latitude"
-                android:visibility="invisible"
-                app:hintTextColor="?attr/text_color"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/longitude_editText"
-                 >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <TextView
-                android:id="@+id/city_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:ems="10"
-                android:text="Please Choose Your City:"
-                android:textColor="?attr/text_color"
-                android:textSize="20sp"
-                android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/latitude_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginTop="0dp"
+        app:hintTextColor="?attr/text_color"
+        android:hint="Latitude"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/longitude_editText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <TextView
+        android:id="@+id/city_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:layout_marginBottom="0dp"
+        android:visibility="invisible"
+        android:ems="10"
+        android:text="Please Choose Your City:"
+        android:textColor="?attr/text_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.608" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/city_editText"
