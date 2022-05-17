@@ -29,10 +29,14 @@ import com.example.weatherprediction.databinding.FragmentHomeBinding;
 import com.example.weatherprediction.models.City;
 import com.example.weatherprediction.models.Weather;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private RadioGroup radioGroup;
+    private Boolean setHandler;
     RadioButton cityBtn, coordinationBtn;
 
 
@@ -56,29 +60,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-        binding.latitudeEditText.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (binding.longitudeEditText.getEditText().getText().toString().length() != 0 && editable.toString().length() != 0) {
-                    Toast.makeText(getActivity(), "no internet connection", Toast.LENGTH_LONG).show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            binding.discoverButton.performClick();
-                        }
-                    }, 5000);
-                }
-            }
-        });
-
+        addHandlerForAutoConnection();
         homeViewModel.city.observe(getActivity(), new Observer<City>() {
             @Override
             public void onChanged(City city) {
@@ -166,6 +148,43 @@ public class HomeFragment extends Fragment {
         binding.latitudeEditText.setVisibility(View.INVISIBLE);
         binding.longitudeEditText.setVisibility(View.INVISIBLE);
         binding.discoverButton.setVisibility(View.INVISIBLE);
+    }
+
+    private void addHandlerForAutoConnection() {
+        ArrayList<EditText> views = new ArrayList<EditText>(Arrays.asList(
+                binding.longitudeEditText.getEditText(),
+                binding.latitudeEditText.getEditText(),
+                binding.cityEditText.getEditText()));
+        setHandler = false;
+        for (EditText txt : views) {
+            txt.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if ((txt != binding.cityEditText.getEditText() && binding.latitudeEditText.getEditText().getText().toString().length() != 0 && binding.longitudeEditText.getEditText().getText().toString().length() != 0) ||
+                            (txt == binding.cityEditText.getEditText() && binding.cityEditText.getEditText().getText().toString().length() != 0)) {
+                        setHandler = true;
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                binding.discoverButton.performClick();
+                            }
+                        }, 5000);
+
+                    }
+                }
+            });
+            if (setHandler)
+                break;
+
+        }
     }
 
 
