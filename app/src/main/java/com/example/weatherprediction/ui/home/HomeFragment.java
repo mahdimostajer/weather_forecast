@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -23,10 +29,14 @@ import com.example.weatherprediction.databinding.FragmentHomeBinding;
 import com.example.weatherprediction.models.City;
 import com.example.weatherprediction.models.Weather;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private RadioGroup radioGroup;
+    private Boolean setHandler;
     RadioButton cityBtn, coordinationBtn;
 
 
@@ -50,7 +60,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
+        addHandlerForAutoConnection();
         homeViewModel.city.observe(getActivity(), new Observer<City>() {
             @Override
             public void onChanged(City city) {
@@ -67,7 +77,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 if (binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_city) {
                     String name = binding.cityEditText.getEditText().getText().toString();
-
                     ConnectivityManager connMgr = (ConnectivityManager)
                             getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo networkInfo = null;
@@ -127,6 +136,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void changeVisibilityForCoordinationMode() {
+        binding.longitudeEditText.requestFocus();
         binding.coordinationText.setVisibility(View.VISIBLE);
         binding.latitudeEditText.setVisibility(View.VISIBLE);
         binding.longitudeEditText.setVisibility(View.VISIBLE);
@@ -140,8 +150,46 @@ public class HomeFragment extends Fragment {
         binding.discoverButton.setVisibility(View.INVISIBLE);
     }
 
+    private void addHandlerForAutoConnection() {
+        ArrayList<EditText> views = new ArrayList<EditText>(Arrays.asList(
+                binding.longitudeEditText.getEditText(),
+                binding.latitudeEditText.getEditText(),
+                binding.cityEditText.getEditText()));
+        setHandler = false;
+        for (EditText txt : views) {
+            txt.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if ((txt != binding.cityEditText.getEditText() && binding.latitudeEditText.getEditText().getText().toString().length() != 0 && binding.longitudeEditText.getEditText().getText().toString().length() != 0) ||
+                            (txt == binding.cityEditText.getEditText() && binding.cityEditText.getEditText().getText().toString().length() != 0)) {
+                        setHandler = true;
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                binding.discoverButton.performClick();
+                            }
+                        }, 5000);
+
+                    }
+                }
+            });
+            if (setHandler)
+                break;
+
+        }
+    }
+
 
     private void changeVisibilityForCityMode() {
+        binding.cityEditText.requestFocus();
         binding.cityText.setVisibility(View.VISIBLE);
         binding.cityEditText.setVisibility(View.VISIBLE);
         binding.discoverButton.setVisibility(View.VISIBLE);
