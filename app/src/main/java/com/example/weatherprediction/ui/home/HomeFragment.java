@@ -35,6 +35,7 @@ import com.example.weatherprediction.models.Day;
 import com.example.weatherprediction.models.Weather;
 import com.example.weatherprediction.ui.DayListAdapter;
 import com.example.weatherprediction.ui.WeatherFragment;
+import com.google.gson.Gson;
 
 import java.util.LinkedList;
 
@@ -132,13 +133,19 @@ public class HomeFragment extends Fragment {
         homeViewModel.weather.observe(getActivity(), new Observer<Weather>() {
             @Override
             public void onChanged(Weather weather) {
+                if (!isVisible()) {
+                    return;
+                }
                 Fragment fragment = new WeatherFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("weather" ,new Gson().toJson(weather));
+                fragment.setArguments(bundle);
                 FragmentTransaction ft = getParentFragmentManager().beginTransaction();
                 ft.replace(R.id.nav_host_fragment_activity_main, fragment);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.commit();
 
-                Toast.makeText(getActivity(), "current temp:" + weather.current.temp.toString(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "current temp:" + weather.current.temp.toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -190,7 +197,9 @@ public class HomeFragment extends Fragment {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                binding.discoverButton.performClick();
+                                if (isVisible()) {
+                                    binding.discoverButton.performClick();
+                                }
                             }
                         }, 5000);
 

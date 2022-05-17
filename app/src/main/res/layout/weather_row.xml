@@ -10,7 +10,7 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="24dp"
     app:cardElevation="20dp"
-    app:contentPadding="16dp"
+    app:contentPadding="12dp"
     >
 
     <androidx.appcompat.widget.LinearLayoutCompat
