@@ -2,158 +2,184 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="10dp"
     android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="10dp"
     android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical"
     app:cardCornerRadius="24dp"
     app:cardElevation="20dp"
     app:contentPadding="12dp"
     tools:context=".ui.DetailsFragment">
 
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="40"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="20"
+            android:orientation="vertical">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/detail_wind_speed_label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical">
+                android:text="wind speed"
+                android:textColor="?attr/text_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_cloud_label" />
 
-
-                <TextView
-                    android:id="@+id/detail_wind_speed_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="wind speed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_cloud_label" />
-                <TextView
-                    android:id="@+id/detail_max_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="max temperature"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_min_label" />
-
-                <TextView
-                    android:id="@+id/detail_min_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="min"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <TextView
-                    android:id="@+id/detail_sunrise_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="sunrise"/>
-                <TextView
-                    android:id="@+id/detail_sunset_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="sunset"/>
-                <TextView
-                    android:id="@+id/detail_pressure_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="pressure"/>
-                <TextView
-                    android:id="@+id/detail_humidity_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="humidity"/>
-                <TextView
-                    android:id="@+id/detail_wind_degree_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="wind degree"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/detail_max_label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical">
+                android:text="max temperature"
+                android:textColor="?attr/text_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_min_label" />
+
+            <TextView
+                android:id="@+id/detail_min_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="min"
+                android:textColor="?attr/text_color"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
+            <TextView
+                android:id="@+id/detail_sunrise_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sunrise"
+                android:textColor="?attr/text_color" />
 
-                <TextView
-                    android:id="@+id/detail_wind_speed_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
+            <TextView
+                android:id="@+id/detail_sunset_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sunset"
+                android:textColor="?attr/text_color" />
 
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/detail_wind_speed_label"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_cloud_text_view" />
+            <TextView
+                android:id="@+id/detail_pressure_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-                <TextView
-                    android:id="@+id/detail_max_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/detail_max_label"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_min_text_view" />
+                android:text="pressure"
+                android:textColor="?attr/text_color" />
 
-                <TextView
-                    android:id="@+id/detail_min_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/detail_min_label"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/detail_humidity_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="humidity"
 
+                android:textColor="?attr/text_color" />
 
+            <TextView
+                android:id="@+id/detail_wind_degree_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="wind degree"
+                android:textColor="?attr/text_color" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/detail_sunrise_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"/>
-                <TextView
-                    android:id="@+id/detail_sunset_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"/>
-                <TextView
-                    android:id="@+id/detail_pressure_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"/>
-                <TextView
-                    android:id="@+id/detail_humidity_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"/>
-                <TextView
-                    android:id="@+id/detail_wind_degree_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="20"
+            android:orientation="vertical">
 
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/detail_wind_speed_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/text_color"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/detail_wind_speed_label"
+                app:layout_constraintTop_toBottomOf="@+id/detail_cloud_text_view" />
+
+            <TextView
+                android:id="@+id/detail_max_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/text_color"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/detail_max_label"
+                app:layout_constraintTop_toBottomOf="@+id/detail_min_text_view" />
+
+            <TextView
+                android:id="@+id/detail_min_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/text_color"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/detail_min_label"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            <TextView
+                android:id="@+id/detail_sunrise_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/text_color" />
+
+            <TextView
+                android:id="@+id/detail_sunset_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/text_color" />
+
+            <TextView
+                android:id="@+id/detail_pressure_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/text_color" />
+
+            <TextView
+                android:id="@+id/detail_humidity_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/text_color" />
+
+            <TextView
+                android:id="@+id/detail_wind_degree_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/text_color" />
+
+
+        </LinearLayout>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </com.google.android.material.card.MaterialCardView>
