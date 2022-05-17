@@ -7,165 +7,170 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-        app:layout_constraintVertical_bias="0.041">
-
-
-        <RadioButton
-            android:id="@+id/radio_coordination"
-            android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
-            android:text="@string/coordination"
-            android:textColor="?attr/text_color"
-            android:textSize="16sp" />
+            >
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/purple_500"
+                android:textSize="40sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:text="@string/search"
+                android:textColor="?attr/text_color"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName">
 
-        <RadioButton
-            android:id="@+id/radio_city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
-            android:text="@string/city_name"
-            android:textColor="?attr/text_color"
-            android:textSize="16sp" />
 
-    </RadioGroup>
+                <RadioButton
+                    android:id="@+id/radio_coordination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:text="@string/coordination"
+                    android:textColor="?attr/text_color"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5sp"
-        android:ems="10"
-        android:text="@string/search"
-        android:textColor="?attr/text_color"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.251" />
+                <RadioButton
+                    android:id="@+id/radio_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:text="@string/city_name"
+                    android:textColor="?attr/text_color"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="@color/purple_500"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019" />
-
-    <TextView
-        android:id="@+id/coordination_text"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10sp"
-        android:layout_marginTop="12dp"
-        android:visibility="invisible"
-        android:ems="10"
-        android:text="Please Choose Your Coordination:"
-        android:textColor="?attr/text_color"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/longitude_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_marginTop="0dp"
-        android:hint="Longitude"
-        app:hintTextColor="?attr/text_color"
-        app:layout_constraintTop_toBottomOf="@+id/coordination_text">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/latitude_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_marginTop="0dp"
-        app:hintTextColor="?attr/text_color"
-        android:hint="Latitude"
-        app:layout_constraintTop_toBottomOf="@+id/longitude_editText">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+            </RadioGroup>
 
 
 
-    <TextView
-        android:id="@+id/city_text"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10sp"
-        android:layout_marginBottom="0dp"
-        android:visibility="invisible"
-        android:ems="10"
-        android:text="Please Choose Your City:"
-        android:textColor="?attr/text_color"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.608" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/city_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_marginTop="0dp"
-        android:scrollbars="vertical"
-        app:hintTextColor="?attr/text_color"
-        android:hint="City Name"
-        app:layout_constraintTop_toBottomOf="@+id/city_text">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/inputs_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+            <TextView
+                android:id="@+id/coordination_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:text="Please Choose Your Coordination:"
+                android:textColor="?attr/text_color"
+                android:textSize="20sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                 />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/longitude_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Longitude"
+                android:visibility="invisible"
+                app:hintTextColor="?attr/text_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/coordination_text"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/discover_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Discover"
-        android:textColor="?attr/text_color"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.868" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/latitude_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Latitude"
+                android:visibility="invisible"
+                app:hintTextColor="?attr/text_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/longitude_editText"
+                 >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/city_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:ems="10"
+                android:text="Please Choose Your City:"
+                android:textColor="?attr/text_color"
+                android:textSize="20sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/city_editText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="City Name"
+                android:scrollbars="vertical"
+                android:visibility="invisible"
+                app:hintTextColor="?attr/text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city_text" >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/discover_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discover"
+                android:textColor="?attr/text_color"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputs_group" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

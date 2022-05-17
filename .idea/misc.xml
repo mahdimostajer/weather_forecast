@@ -8,6 +8,16 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherPrediction/app/src/main/res/layout/fragment_home.xml" value="0.16" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherPrediction/app/src/main/res/layout/fragment_setting.xml" value="0.2421875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherPrediction/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2421875" />
+        <entry key="app/src/main/res/drawable/bottom_nav_icon_color_selector.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic__1d.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_cloud.xml" value="0.211" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.12740487387772553" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3104797363281249" />
+        <entry key="app/src/main/res/layout/fragment_weather.xml" value="0.12740487387772553" />
+        <entry key="app/src/main/res/layout/weather_row.xml" value="0.3084320068359375" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.3098958333333333" />
       </map>
     </option>
   </component>
