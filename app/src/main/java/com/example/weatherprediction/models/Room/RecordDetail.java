@@ -12,6 +12,6 @@ public interface RecordDetail {
     @Insert
     void insert(CityRecordDetail record);
 
-    @Query("SELECT * FROM cityrecorddetail_table INNER JOIN cityrecord_table on record_id INNER JOIN city_table ON city_id WHERE city_id = :city_id ORDER BY city_id")
-    LiveData<List<CityRecordDetail>> getAllDetails(int city_id);
+    @Query("SELECT * FROM cityrecorddetail_table INNER JOIN cityrecord_table on record_id WHERE record_id = :record_id ORDER BY dt")
+    LiveData<List<CityRecordDetail>> getAllDetails(int record_id);
 }
