@@ -1,19 +1,14 @@
 package com.example.weatherprediction.models.Room;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import java.util.Date;
 
-@Entity(tableName = "cityrecorddetail_table")
+@Entity(tableName = "cityrecorddetail_table", primaryKeys = {"longitude","latitude","dayNumber"})
 public class CityRecordDetail {
-    @PrimaryKey(autoGenerate = true)
-    public final int detail_id;
 
     @TypeConverters({Converters.class})
     public Date dt;
@@ -71,10 +66,6 @@ public class CityRecordDetail {
     public Float max_temp;
 
     @NonNull
-    @ColumnInfo(name = "city_name")
-    public String cityName;
-
-    @NonNull
     public Float longitude;
 
     @NonNull
@@ -84,31 +75,32 @@ public class CityRecordDetail {
     public Date fetchDate;
 
     public String icon;
+    @NonNull
+    public int dayNumber;
 
 
-    public CityRecordDetail(int detail_id,
-                            Date dt,
+    public CityRecordDetail(Date dt,
                             Date sunRise,
                             Date sunSet,
-                            @NonNull Float tempDay,
+                            Float tempDay,
                             @NonNull Float dewPoint,
-                            @NonNull Float feelsLike,
+                            Float feelsLike,
                             Float humidity,
                             @NonNull String description,
                             @NonNull String weatherMain,
                             Float tempMorning,
                             Float tempEvening,
                             Float tempNight,
-                            @NonNull String cityName,
                             @NonNull Float longitude,
                             @NonNull Float latitude,
                             Date fetchDate,
                             Float pressure,
+                            Float windSpeed,
                             Float wind_deg,
                             Float min_temp,
                             Float max_temp,
-                            String icon) {
-        this.detail_id = detail_id;
+                            String icon,
+                            int dayNumber) {
         this.dt = dt;
         this.pressure = pressure;
         this.sunRise = sunRise;
@@ -122,13 +114,14 @@ public class CityRecordDetail {
         this.humidity = humidity;
         this.description = description;
         this.weatherMain = weatherMain;
-        this.cityName = cityName;
         this.latitude = latitude;
         this.longitude = longitude;
         this.fetchDate = fetchDate;
+        this.windSpeed = windSpeed;
         this.wind_deg = wind_deg;
         this.min_temp = min_temp;
         this.max_temp = max_temp;
         this.icon = icon;
+        this.dayNumber = dayNumber;
     }
 }

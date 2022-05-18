@@ -7,13 +7,11 @@ public class Weather {
     public List<Day> daily;
     public float lat;
     public float lon;
-    public String timezone;
 
-    public Weather(Today current, List<Day> daily, float lat, float lon, String timezone) {
+    public Weather(Today current, List<Day> daily, float lat, float lon) {
         this.current = current;
         this.daily = daily;
         this.lat = lat;
         this.lon = lon;
-        this.timezone = timezone;
     }
 }

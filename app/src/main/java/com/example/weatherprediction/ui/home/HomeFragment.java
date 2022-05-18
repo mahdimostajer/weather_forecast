@@ -37,6 +37,7 @@ import com.example.weatherprediction.ui.DayListAdapter;
 import com.example.weatherprediction.ui.WeatherFragment;
 import com.google.gson.Gson;
 
+import java.util.Date;
 import java.util.LinkedList;
 
 import java.util.ArrayList;
@@ -77,8 +78,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(City city) {
                 if (city != null) {
-                    Log.d("corrdinate", city.features.get(0).center.get(0));
-                    Log.d("corrdinate", city.features.get(0).center.get(1));
+                    Log.d("coordinate", city.features.get(0).center.get(0));
+                    Log.d("coordinate", city.features.get(0).center.get(1));
                     homeViewModel.getWeather(city.features.get(0).center.get(1), city.features.get(0).center.get(0));
                 }
             }
@@ -149,7 +150,6 @@ public class HomeFragment extends Fragment {
                 ft.replace(R.id.nav_host_fragment_activity_main, fragment);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null).commit();
-
 //                Toast.makeText(getActivity(), "current temp:" + weather.current.temp.toString(), Toast.LENGTH_LONG).show();
             }
         });

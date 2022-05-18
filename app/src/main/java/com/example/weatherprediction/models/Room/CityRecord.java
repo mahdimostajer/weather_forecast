@@ -9,8 +9,9 @@ import androidx.room.TypeConverters;
 
 import java.util.Date;
 
-@Entity(tableName = "cityrecord_table", foreignKeys = {@ForeignKey(entity = CityBase.class,
-        parentColumns = "city_id", childColumns = "iCity_id", onDelete = ForeignKey.CASCADE)})
+//@Entity(tableName = "cityrecord_table", foreignKeys = {@ForeignKey(entity = CityBase.class,
+//        parentColumns = "city_id", childColumns = "iCity_id", onDelete = ForeignKey.CASCADE)})
+@Entity(tableName = "cityrecord_table")
 public class CityRecord {
     @PrimaryKey(autoGenerate = true)
     private int record_id;

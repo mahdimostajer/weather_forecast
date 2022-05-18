@@ -32,7 +32,7 @@ public class MainRepository {
     }
 
     public void getWeather(String lat, String lon) {
-        new fetchWeather(weather).execute(lat, lon);
+        new fetchWeather(weather,Float.parseFloat(lon), Float.parseFloat(lat)).execute(lat, lon);
     }
 
     public void getCacheWeather(String lat, String lon) {
@@ -47,8 +47,12 @@ public class MainRepository {
 
     public class fetchWeather extends AsyncTask<String, Void, String> {
         MutableLiveData<Weather> weather;
+        private final float lon;
+        private final float lat;
 
-        public fetchWeather(MutableLiveData<Weather> weather) {
+        public fetchWeather(MutableLiveData<Weather> weather, float lon, float lat) {
+            this.lat = lat;
+            this.lon = lon;
             this.weather = weather;
         }
 
@@ -57,6 +61,8 @@ public class MainRepository {
             super.onPostExecute(s);
             Gson gson = new Gson();
             Weather newWeather = gson.fromJson(s, Weather.class);
+            newWeather.lat = this.lat;
+            newWeather.lon = this.lon;
             new insertAsyncTask(dao).execute(newWeather);
             this.weather.setValue(newWeather);
         }
@@ -79,34 +85,33 @@ public class MainRepository {
         @Override
         protected Void doInBackground(final Weather... params) {
             Weather weather = params[0];
-            String cityName = weather.timezone.toLowerCase().replace("_", " ").substring(weather.timezone.indexOf("/") + 1);
-            CityRecordDetail cityRecordDetail = new CityRecordDetail(0,
-                    new Date(weather.current.dt),
+            CityRecordDetail cityRecordDetail = new CityRecordDetail(new Date(weather.current.dt),
                     new Date(weather.current.sunrise),
                     new Date(weather.current.sunset),
-                    weather.current.temp,
+                    null,
                     weather.current.dew_point,
-                    weather.current.feels_like,
+                    null,
                     weather.current.humidity,
                     weather.current.weather.get(0).description,
                     weather.current.weather.get(0).main,
                     (float) 0,
                     (float) 0,
                     (float) 0,
-                    cityName,
                     weather.lon,
                     weather.lat,
                     new Date(),
                     weather.current.pressure,
+                    weather.current.wind_speed,
                     weather.current.wind_deg,
                     (float) 0,
                     (float) 0,
-                    weather.current.weather.get(0).icon);
+                    weather.current.weather.get(0).icon,
+                    0);
             mAsyncTaskDao.insert(cityRecordDetail);
-
+            int i = 0;
             for (Day day : weather.daily) {
-                CityRecordDetail newDay = new CityRecordDetail(0,
-                        new Date(day.dt),
+                i += 1;
+                CityRecordDetail newDay = new CityRecordDetail(new Date(day.dt),
                         new Date(day.sunrise),
                         new Date(day.sunset),
                         day.temp.day,
@@ -118,15 +123,16 @@ public class MainRepository {
                         day.temp.morn,
                         day.temp.eve,
                         day.temp.night,
-                        cityName,
                         weather.lon,
                         weather.lat,
                         new Date(),
                         day.pressure,
+                        day.wind_speed,
                         day.wind_deg,
                         day.temp.min,
                         day.temp.max,
-                        day.weather.get(0).icon);
+                        day.weather.get(0).icon,
+                        i);
                 mAsyncTaskDao.insert(newDay);
             }
             return null;
@@ -153,6 +159,9 @@ public class MainRepository {
             super.onPostExecute(list);
             if (list.size() > 0) {
                 CityRecordDetail first = list.get(0);
+                if (new Date().getTime() - first.fetchDate.getTime() > 12 * 3600 * 1000) {
+                    return;
+                }
                 Information info = new Information(0, first.description, first.weatherMain, first.icon);
 
                 Today current = new Today(Converters.dateToTimestamp(first.dt).intValue(),
@@ -194,7 +203,7 @@ public class MainRepository {
                             newTemp,
                             Arrays.asList(newInfo)));
                 }
-                Weather newWeather = new Weather(current, daily, first.latitude, first.longitude, first.cityName);
+                Weather newWeather = new Weather(current, daily, first.latitude, first.longitude);
                 weather.setValue(newWeather);
             }
         }
@@ -221,6 +230,9 @@ public class MainRepository {
             super.onPostExecute(list);
             if (list.size() > 0) {
                 CityRecordDetail first = list.get(0);
+                if (new Date().getTime() - first.fetchDate.getTime() > 12 * 3600 * 1000) {
+                    return;
+                }
                 Information info = new Information(0, first.description, first.weatherMain, first.icon);
 
                 Today current = new Today(Converters.dateToTimestamp(first.dt).intValue(),
@@ -262,7 +274,8 @@ public class MainRepository {
                             newTemp,
                             Arrays.asList(newInfo)));
                 }
-                Weather newWeather = new Weather(current, daily, first.latitude, first.longitude, first.cityName);
+                Weather newWeather = new Weather(current, daily, first.latitude, first.longitude);
+
                 weather.setValue(newWeather);
             }
         }

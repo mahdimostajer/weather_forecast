@@ -2,6 +2,7 @@ package com.example.weatherprediction;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -39,7 +40,9 @@ public class CityRepository {
             super.onPostExecute(s);
             Gson gson = new Gson();
             City newCity = gson.fromJson(s, City.class);
-            CityBase cityBase = new CityBase(0, newCity.query.get(0),
+            Log.d("error", new Gson().toJson(s));
+            Log.d("error2", s);
+            CityBase cityBase = new CityBase( newCity.query.get(0),
                     Float.valueOf(newCity.features.get(0).center.get(0)), Float.valueOf(newCity.features.get(0).center.get(1)));
             city.setValue(newCity);
             new insertAsyncTask(cityDao).execute(cityBase);

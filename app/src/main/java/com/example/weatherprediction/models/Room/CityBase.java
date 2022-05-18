@@ -6,8 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "city_table")
 public class CityBase {
-    @PrimaryKey(autoGenerate = true)
-    private final int city_id;
+    @PrimaryKey
     @NonNull
     private String name;
     @NonNull
@@ -15,8 +14,7 @@ public class CityBase {
     @NonNull
     private Float latitude;
 
-    public CityBase(int city_id, @NonNull String name, @NonNull Float longitude, @NonNull Float latitude) {
-        this.city_id = city_id;
+    public CityBase(@NonNull String name, @NonNull Float longitude, @NonNull Float latitude) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -50,7 +48,4 @@ public class CityBase {
         this.name = name;
     }
 
-    public int getCity_id() {
-        return city_id;
-    }
 }
