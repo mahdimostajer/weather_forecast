@@ -56,7 +56,11 @@ public class WeatherFragment extends Fragment {
         mDayList = new LinkedList<>();
         mDayList.addAll(weather.daily);
         mDayList.removeFirst();
+        for (int i = 0; i < mDayList.size(); i++) {
+            Log.d("number", Float.toString(mDayList.get(i).temp.min));
+        }
         mAdapter = new DayListAdapter(this,container.getContext(),mDayList);
+
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
@@ -97,5 +101,6 @@ public class WeatherFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 
 }
