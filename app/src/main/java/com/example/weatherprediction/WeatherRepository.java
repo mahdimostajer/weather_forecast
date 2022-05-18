@@ -1,12 +1,16 @@
 package com.example.weatherprediction;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.weatherprediction.models.Weather;
 import com.example.weatherprediction.network.WeatherUtils;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 public class WeatherRepository {
 
