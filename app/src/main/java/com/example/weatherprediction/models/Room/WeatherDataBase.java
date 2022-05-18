@@ -8,10 +8,11 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 
-@Database(entities = {CityBase.class, CityRecord.class, CityRecordDetail.class}, version = 1, exportSchema = false)
+@Database(entities = {CityBase.class, CityRecord.class, CityRecordDetail.class}, version = 9, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class WeatherDataBase extends RoomDatabase {
-    public abstract CityDao contactDao();
+    public abstract CityDao cityDao();
+    public abstract RecordDetail recordDetail();
 
     private static WeatherDataBase instance;
 

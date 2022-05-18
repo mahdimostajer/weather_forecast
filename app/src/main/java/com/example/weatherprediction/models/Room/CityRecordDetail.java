@@ -10,14 +10,10 @@ import androidx.room.TypeConverters;
 
 import java.util.Date;
 
-@Entity(tableName = "cityrecorddetail_table", foreignKeys = {@ForeignKey(entity = CityRecord.class,
-        parentColumns = "record_id", childColumns = "iRecord_id", onDelete = ForeignKey.CASCADE)})
+@Entity(tableName = "cityrecorddetail_table")
 public class CityRecordDetail {
     @PrimaryKey(autoGenerate = true)
     public final int detail_id;
-
-    @ColumnInfo(index = true)
-    public int iRecord_id;
 
     @TypeConverters({Converters.class})
     public Date dt;
@@ -34,61 +30,66 @@ public class CityRecordDetail {
     @TypeConverters({Converters.class})
     public Date moonSet;
 
-    @NonNull
     public Float tempDay;
 
-    @Nullable
     public Float tempNight;
 
-    @Nullable
     public Float tempEvening;
 
-    @Nullable
     public Float tempMorning;
 
-    @NonNull
     public Float dewPoint;
 
-    @NonNull
     public Float moonPhase;
 
-    @NonNull
     public Float feelsLike;
 
-    @NonNull
     public Float uvi;
 
-    @NonNull
     public Float clouds;
 
-    @NonNull
     public Float pop;
 
-    @NonNull
     public Float windSpeed;
 
-    @NonNull
-    public int humidity;
+    public Float humidity;
 
-    @NonNull
     public int windDeg;
 
-    @NonNull
-    public int pressure;
+    public Float pressure;
 
-    @NonNull
     public int visibility;
 
-    @NonNull
     public String description;
 
-    @NonNull
     public String weatherMain;
 
+    public Float wind_deg;
 
-    public CityRecordDetail(int detail_id, Date dt, Date sunRise, Date sunSet, @NonNull Float tempDay, @NonNull Float dewPoint, @NonNull Float feelsLike, int humidity, @NonNull String description, @NonNull String weatherMain, Float tempMorning, Float tempEvening, Float tempNight) {
+    public Float min_temp;
+
+    public Float max_temp;
+
+    @NonNull
+    @ColumnInfo(name = "city_name")
+    public String cityName;
+
+    @NonNull
+    public Float longitude;
+
+    @NonNull
+    public Float latitude;
+
+    @TypeConverters({Converters.class})
+    public Date fetchDate;
+
+    public String icon;
+
+
+    public CityRecordDetail(int detail_id, Date dt, Date sunRise, Date sunSet, @NonNull Float tempDay, @NonNull Float dewPoint, @NonNull Float feelsLike, Float humidity, @NonNull String description, @NonNull String weatherMain, Float tempMorning, Float tempEvening, Float tempNight, @NonNull String cityName, @NonNull Float longitude, @NonNull Float latitude, Date fetchDate, Float pressure, Float wind_deg, Float min_temp, Float max_temp, String icon) {
         this.detail_id = detail_id;
         this.dt = dt;
+        this.pressure = pressure;
         this.sunRise = sunRise;
         this.sunSet = sunSet;
         this.tempDay = tempDay;
@@ -100,5 +101,13 @@ public class CityRecordDetail {
         this.humidity = humidity;
         this.description = description;
         this.weatherMain = weatherMain;
+        this.cityName = cityName;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.fetchDate = fetchDate;
+        this.wind_deg = wind_deg;
+        this.min_temp = min_temp;
+        this.max_temp = max_temp;
+        this.icon = icon;
     }
 }

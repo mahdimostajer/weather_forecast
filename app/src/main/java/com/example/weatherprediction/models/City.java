@@ -4,4 +4,5 @@ import java.util.List;
 
 public class City {
     public List<CityData> features;
+    public List<String> query;
 }

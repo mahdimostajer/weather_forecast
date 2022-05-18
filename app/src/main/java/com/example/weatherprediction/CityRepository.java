@@ -1,10 +1,14 @@
 package com.example.weatherprediction;
 
+import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.weatherprediction.models.City;
+import com.example.weatherprediction.models.Room.CityBase;
+import com.example.weatherprediction.models.Room.CityDao;
+import com.example.weatherprediction.models.Room.WeatherDataBase;
 import com.example.weatherprediction.network.CityUtils;
 import com.example.weatherprediction.ui.home.HomeViewModel;
 import com.google.gson.Gson;
@@ -12,8 +16,11 @@ import com.google.gson.Gson;
 public class CityRepository {
 
     public MutableLiveData<City> city = new MutableLiveData<>();
-    public CityRepository(){
+    CityDao cityDao;
 
+    public CityRepository(Application application) {
+        WeatherDataBase weatherDataBase = WeatherDataBase.getInstance(application);
+        cityDao = weatherDataBase.cityDao();
     }
 
     public void getCity(String name) {
@@ -32,13 +39,32 @@ public class CityRepository {
             super.onPostExecute(s);
             Gson gson = new Gson();
             City newCity = gson.fromJson(s, City.class);
+            CityBase cityBase = new CityBase(0, newCity.query.get(0),
+                    Float.valueOf(newCity.features.get(0).center.get(0)), Float.valueOf(newCity.features.get(0).center.get(1)));
             city.setValue(newCity);
+            new insertAsyncTask(cityDao).execute(cityBase);
         }
 
         @Override
         protected String doInBackground(String... name) {
             CityUtils cityUtils = new CityUtils();
             return cityUtils.getCoordinates(name[0]);
+        }
+    }
+
+
+    private static class insertAsyncTask extends AsyncTask<CityBase, Void, Void> {
+
+        private CityDao mAsyncTaskDao;
+
+        insertAsyncTask(CityDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final CityBase... params) {
+            mAsyncTaskDao.insert(params[0]);
+            return null;
         }
     }
 }

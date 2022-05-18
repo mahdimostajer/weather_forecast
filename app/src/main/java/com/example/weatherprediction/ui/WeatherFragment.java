@@ -48,6 +48,9 @@ public class WeatherFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         Weather weather = new Gson().fromJson(getArguments().getString("weather"), Weather.class);
+        if(weather == null){
+            return null;
+        }
         binding = FragmentWeatherBinding.inflate(inflater, container, false);
         setDetails(weather);
 

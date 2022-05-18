@@ -101,6 +101,7 @@ public class HomeFragment extends Fragment {
                             Toast.makeText(getActivity(), "please enter city name", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(getActivity(), "no internet connection", Toast.LENGTH_LONG).show();
+                            homeViewModel.getCacheCity(name);
                         }
                     }
 
@@ -122,6 +123,7 @@ public class HomeFragment extends Fragment {
                             Toast.makeText(getActivity(), "please enter required fields", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(getActivity(), "no internet connection", Toast.LENGTH_LONG).show();
+                            homeViewModel.getCacheWeather(lat, lon);
                         }
                     }
 
@@ -133,7 +135,7 @@ public class HomeFragment extends Fragment {
         homeViewModel.weather.observe(getActivity(), new Observer<Weather>() {
             @Override
             public void onChanged(Weather weather) {
-                if (!isVisible()) {
+                if (!isVisible() || weather == null) {
                     return;
                 }
                 Fragment fragment = new WeatherFragment();
@@ -174,42 +176,42 @@ public class HomeFragment extends Fragment {
     }
 
     private void addHandlerForAutoConnection() {
-        ArrayList<EditText> views = new ArrayList<EditText>(Arrays.asList(
-                binding.longitudeEditText.getEditText(),
-                binding.latitudeEditText.getEditText(),
-                binding.cityEditText.getEditText()));
-        setHandler = false;
-        for (EditText txt : views) {
-            txt.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    if ((txt != binding.cityEditText.getEditText() && binding.latitudeEditText.getEditText().getText().toString().length() != 0 && binding.longitudeEditText.getEditText().getText().toString().length() != 0) ||
-                            (txt == binding.cityEditText.getEditText() && binding.cityEditText.getEditText().getText().toString().length() != 0)) {
-                        setHandler = true;
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (isVisible()) {
-                                    binding.discoverButton.performClick();
-                                }
-                            }
-                        }, 5000);
-
-                    }
-                }
-            });
-            if (setHandler)
-                break;
-
-        }
+//        ArrayList<EditText> views = new ArrayList<EditText>(Arrays.asList(
+//                binding.longitudeEditText.getEditText(),
+//                binding.latitudeEditText.getEditText(),
+//                binding.cityEditText.getEditText()));
+//        setHandler = false;
+//        for (EditText txt : views) {
+//            txt.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//                    if ((txt != binding.cityEditText.getEditText() && binding.latitudeEditText.getEditText().getText().toString().length() != 0 && binding.longitudeEditText.getEditText().getText().toString().length() != 0) ||
+//                            (txt == binding.cityEditText.getEditText() && binding.cityEditText.getEditText().getText().toString().length() != 0)) {
+//                        setHandler = true;
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                if (isVisible()) {
+//                                    binding.discoverButton.performClick();
+//                                }
+//                            }
+//                        }, 5000);
+//
+//                    }
+//                }
+//            });
+//            if (setHandler)
+//                break;
+//
+//        }
     }
 
 
