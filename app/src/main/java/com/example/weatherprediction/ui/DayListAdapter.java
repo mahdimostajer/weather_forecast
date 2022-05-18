@@ -92,7 +92,7 @@ public class DayListAdapter extends
             FragmentTransaction ft = mainFragment.getParentFragmentManager().beginTransaction();
             ft.replace(R.id.nav_host_fragment_activity_main, fragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            ft.commit();
+            ft.addToBackStack(null).commit();
 //            Toast.makeText(view.getContext(), "to details page", Toast.LENGTH_LONG).show();
             // go to details page
             mAdapter.notifyDataSetChanged();

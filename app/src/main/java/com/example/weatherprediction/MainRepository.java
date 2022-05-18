@@ -133,7 +133,7 @@ public class MainRepository {
         }
     }
 
-    private static class CacheWeather extends AsyncTask<String, Void, Weather> {
+    private static class CacheWeather extends AsyncTask<String, Void, List<CityRecordDetail>> {
         private RecordDetail mAsyncTaskDao;
         public MutableLiveData<Weather> weather;
 
@@ -143,8 +143,14 @@ public class MainRepository {
         }
 
         @Override
-        protected Weather doInBackground(final String... params) {
+        protected List<CityRecordDetail> doInBackground(final String... params) {
             List<CityRecordDetail> list = mAsyncTaskDao.getCoordinate(Float.valueOf(params[0]), Float.valueOf(params[1]));
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(List<CityRecordDetail> list) {
+            super.onPostExecute(list);
             if (list.size() > 0) {
                 CityRecordDetail first = list.get(0);
                 Information info = new Information(0, first.description, first.weatherMain, first.icon);
@@ -189,20 +195,13 @@ public class MainRepository {
                             Arrays.asList(newInfo)));
                 }
                 Weather newWeather = new Weather(current, daily, first.latitude, first.longitude, first.cityName);
-                return newWeather;
+                weather.setValue(newWeather);
             }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Weather newWeather) {
-            super.onPostExecute(newWeather);
-            weather.setValue(newWeather);
         }
     }
 
 
-    private static class CacheCity extends AsyncTask<String, Void, Weather> {
+    private static class CacheCity extends AsyncTask<String, Void, List<CityRecordDetail>> {
         private RecordDetail mAsyncTaskDao;
         public MutableLiveData<Weather> weather;
 
@@ -212,8 +211,14 @@ public class MainRepository {
         }
 
         @Override
-        protected Weather doInBackground(final String... params) {
-            List<CityRecordDetail> list = mAsyncTaskDao.getCity(params[0]);
+        protected List<CityRecordDetail> doInBackground(final String... params) {
+            return mAsyncTaskDao.getCity(params[0]);
+
+        }
+
+        @Override
+        protected void onPostExecute(List<CityRecordDetail> list) {
+            super.onPostExecute(list);
             if (list.size() > 0) {
                 CityRecordDetail first = list.get(0);
                 Information info = new Information(0, first.description, first.weatherMain, first.icon);
@@ -258,15 +263,8 @@ public class MainRepository {
                             Arrays.asList(newInfo)));
                 }
                 Weather newWeather = new Weather(current, daily, first.latitude, first.longitude, first.cityName);
-                return newWeather;
+                weather.setValue(newWeather);
             }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Weather list) {
-            super.onPostExecute(list);
-            weather.setValue(list);
         }
     }
 }

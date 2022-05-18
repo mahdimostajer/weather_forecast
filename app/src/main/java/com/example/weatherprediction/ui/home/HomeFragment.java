@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
     private RadioGroup radioGroup;
     private Boolean setHandler;
     RadioButton cityBtn, coordinationBtn;
+    private boolean pending;
 
 
 
@@ -86,6 +87,7 @@ public class HomeFragment extends Fragment {
         binding.discoverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pending = true;
                 if (binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_city) {
                     String name = binding.cityEditText.getEditText().getText().toString();
                     ConnectivityManager connMgr = (ConnectivityManager)
@@ -135,9 +137,10 @@ public class HomeFragment extends Fragment {
         homeViewModel.weather.observe(getActivity(), new Observer<Weather>() {
             @Override
             public void onChanged(Weather weather) {
-                if (!isVisible() || weather == null) {
+                if (!isVisible() || !pending || weather == null) {
                     return;
                 }
+                pending = false;
                 Fragment fragment = new WeatherFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("weather" ,new Gson().toJson(weather));
@@ -145,7 +148,7 @@ public class HomeFragment extends Fragment {
                 FragmentTransaction ft = getParentFragmentManager().beginTransaction();
                 ft.replace(R.id.nav_host_fragment_activity_main, fragment);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.commit();
+                ft.addToBackStack(null).commit();
 
 //                Toast.makeText(getActivity(), "current temp:" + weather.current.temp.toString(), Toast.LENGTH_LONG).show();
             }
