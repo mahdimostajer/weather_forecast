@@ -2,6 +2,7 @@ package com.example.weatherprediction.models.Room;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -9,11 +10,14 @@ import androidx.room.TypeConverters;
 
 import java.util.Date;
 
-@Entity(tableName = "cityrecorddetail_table", foreignKeys = {@ForeignKey(entity = CityBase.class,
-        parentColumns = "record_id", childColumns = "iRecord", onDelete = ForeignKey.CASCADE)})
+@Entity(tableName = "cityrecorddetail_table", foreignKeys = {@ForeignKey(entity = CityRecord.class,
+        parentColumns = "record_id", childColumns = "iRecord_id", onDelete = ForeignKey.CASCADE)})
 public class CityRecordDetail {
     @PrimaryKey(autoGenerate = true)
     public final int detail_id;
+
+    @ColumnInfo(index = true)
+    public int iRecord_id;
 
     @TypeConverters({Converters.class})
     public Date dt;
