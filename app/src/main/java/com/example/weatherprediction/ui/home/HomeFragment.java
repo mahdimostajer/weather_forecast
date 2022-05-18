@@ -179,42 +179,42 @@ public class HomeFragment extends Fragment {
     }
 
     private void addHandlerForAutoConnection() {
-//        ArrayList<EditText> views = new ArrayList<EditText>(Arrays.asList(
-//                binding.longitudeEditText.getEditText(),
-//                binding.latitudeEditText.getEditText(),
-//                binding.cityEditText.getEditText()));
-//        setHandler = false;
-//        for (EditText txt : views) {
-//            txt.addTextChangedListener(new TextWatcher() {
-//                @Override
-//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                }
-//
-//                @Override
-//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                }
-//
-//                @Override
-//                public void afterTextChanged(Editable editable) {
-//                    if ((txt != binding.cityEditText.getEditText() && binding.latitudeEditText.getEditText().getText().toString().length() != 0 && binding.longitudeEditText.getEditText().getText().toString().length() != 0) ||
-//                            (txt == binding.cityEditText.getEditText() && binding.cityEditText.getEditText().getText().toString().length() != 0)) {
-//                        setHandler = true;
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                if (isVisible()) {
-//                                    binding.discoverButton.performClick();
-//                                }
-//                            }
-//                        }, 5000);
-//
-//                    }
-//                }
-//            });
-//            if (setHandler)
-//                break;
-//
-//        }
+        ArrayList<EditText> views = new ArrayList<EditText>(Arrays.asList(
+                binding.longitudeEditText.getEditText(),
+                binding.latitudeEditText.getEditText(),
+                binding.cityEditText.getEditText()));
+        setHandler = false;
+        for (EditText txt : views) {
+            txt.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if ((txt != binding.cityEditText.getEditText() && binding.latitudeEditText.getEditText().getText().toString().length() != 0 && binding.longitudeEditText.getEditText().getText().toString().length() != 0) ||
+                            (txt == binding.cityEditText.getEditText() && binding.cityEditText.getEditText().getText().toString().length() != 0)) {
+                        setHandler = true;
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (isVisible()) {
+                                    binding.discoverButton.performClick();
+                                }
+                            }
+                        }, 5000);
+
+                    }
+                }
+            });
+            if (setHandler)
+                break;
+
+        }
     }
 
 
