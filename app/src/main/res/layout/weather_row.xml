@@ -32,18 +32,17 @@
             app:srcCompat="@android:drawable/ic_dialog_alert" />
 
         <ImageView
-            android:id="@+id/max_temp_image"
-            android:layout_width="12pt"
+            android:id="@+id/min_temp_image"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="12pt"
+            android:layout_marginStart="8pt"
             android:layout_weight="12"
-
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/row_max_temp"
-            app:layout_constraintStart_toEndOf="@+id/row_image"
+            app:layout_constraintStart_toEndOf="@+id/row_max_temp"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_drop_down_24"
-            app:tint="@android:color/holo_red_dark" />
+            app:srcCompat="@drawable/ic_baseline_arrow_drop_up_24"
+            app:tint="@android:color/holo_green_dark" />
+
 
         <TextView
             android:id="@+id/row_max_temp"
@@ -57,17 +56,20 @@
             app:layout_constraintStart_toEndOf="@+id/max_temp_image"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <ImageView
-            android:id="@+id/min_temp_image"
-            android:layout_width="wrap_content"
+            android:id="@+id/max_temp_image"
+            android:layout_width="12pt"
             android:layout_height="match_parent"
-            android:layout_marginStart="8pt"
+            android:layout_marginStart="12pt"
             android:layout_weight="12"
+
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/row_max_temp"
+            app:layout_constraintEnd_toStartOf="@+id/row_max_temp"
+            app:layout_constraintStart_toEndOf="@+id/row_image"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_drop_up_24"
-            app:tint="@android:color/holo_green_dark" />
+            app:srcCompat="@drawable/ic_baseline_arrow_drop_down_24"
+            app:tint="@android:color/holo_red_dark" />
 
         <TextView
             android:id="@+id/row_min_temp"
