@@ -21,13 +21,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherprediction.R;
 import com.example.weatherprediction.databinding.FragmentHomeBinding;
 import com.example.weatherprediction.models.City;
+import com.example.weatherprediction.models.Day;
 import com.example.weatherprediction.models.Weather;
+import com.example.weatherprediction.ui.DayListAdapter;
+import com.example.weatherprediction.ui.WeatherFragment;
+import com.google.gson.Gson;
+
+import java.util.LinkedList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +48,7 @@ public class HomeFragment extends Fragment {
     private RadioGroup radioGroup;
     private Boolean setHandler;
     RadioButton cityBtn, coordinationBtn;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -122,7 +133,19 @@ public class HomeFragment extends Fragment {
         homeViewModel.weather.observe(getActivity(), new Observer<Weather>() {
             @Override
             public void onChanged(Weather weather) {
-                Toast.makeText(getActivity(), "current temp:" + weather.current.temp.toString(), Toast.LENGTH_LONG).show();
+                if (!isVisible()) {
+                    return;
+                }
+                Fragment fragment = new WeatherFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("weather" ,new Gson().toJson(weather));
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+                ft.replace(R.id.nav_host_fragment_activity_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.commit();
+
+//                Toast.makeText(getActivity(), "current temp:" + weather.current.temp.toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -144,10 +167,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void disableChangeVisibilityForCoordinationMode() {
-        binding.coordinationText.setVisibility(View.INVISIBLE);
-        binding.latitudeEditText.setVisibility(View.INVISIBLE);
-        binding.longitudeEditText.setVisibility(View.INVISIBLE);
-        binding.discoverButton.setVisibility(View.INVISIBLE);
+        binding.coordinationText.setVisibility(View.GONE);
+        binding.latitudeEditText.setVisibility(View.GONE);
+        binding.longitudeEditText.setVisibility(View.GONE);
+        binding.discoverButton.setVisibility(View.GONE);
     }
 
     private void addHandlerForAutoConnection() {
@@ -174,7 +197,9 @@ public class HomeFragment extends Fragment {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                binding.discoverButton.performClick();
+                                if (isVisible()) {
+                                    binding.discoverButton.performClick();
+                                }
                             }
                         }, 5000);
 
@@ -196,9 +221,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void disableChangeVisibilityForCityMode() {
-        binding.cityText.setVisibility(View.INVISIBLE);
-        binding.cityEditText.setVisibility(View.INVISIBLE);
-        binding.discoverButton.setVisibility(View.INVISIBLE);
+        binding.cityText.setVisibility(View.GONE);
+        binding.cityEditText.setVisibility(View.GONE);
+        binding.discoverButton.setVisibility(View.GONE);
     }
 
 }
