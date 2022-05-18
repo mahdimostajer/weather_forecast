@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment {
                     }
                     if (networkInfo != null && networkInfo.isConnected()
                             && lat.length() != 0 && lon.length() != 0) {
-                        homeViewModel.getWeather(lon, lat);
+                        homeViewModel.getWeather(lat, lon);
                     } else {
                         if (lat.length() == 0 && lon.length() == 0) {
                             Toast.makeText(getActivity(), "please enter required fields", Toast.LENGTH_LONG).show();

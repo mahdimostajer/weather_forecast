@@ -86,7 +86,28 @@ public class CityRecordDetail {
     public String icon;
 
 
-    public CityRecordDetail(int detail_id, Date dt, Date sunRise, Date sunSet, @NonNull Float tempDay, @NonNull Float dewPoint, @NonNull Float feelsLike, Float humidity, @NonNull String description, @NonNull String weatherMain, Float tempMorning, Float tempEvening, Float tempNight, @NonNull String cityName, @NonNull Float longitude, @NonNull Float latitude, Date fetchDate, Float pressure, Float wind_deg, Float min_temp, Float max_temp, String icon) {
+    public CityRecordDetail(int detail_id,
+                            Date dt,
+                            Date sunRise,
+                            Date sunSet,
+                            @NonNull Float tempDay,
+                            @NonNull Float dewPoint,
+                            @NonNull Float feelsLike,
+                            Float humidity,
+                            @NonNull String description,
+                            @NonNull String weatherMain,
+                            Float tempMorning,
+                            Float tempEvening,
+                            Float tempNight,
+                            @NonNull String cityName,
+                            @NonNull Float longitude,
+                            @NonNull Float latitude,
+                            Date fetchDate,
+                            Float pressure,
+                            Float wind_deg,
+                            Float min_temp,
+                            Float max_temp,
+                            String icon) {
         this.detail_id = detail_id;
         this.dt = dt;
         this.pressure = pressure;
